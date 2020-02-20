@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5082493379873206424}
   - component: {fileID: 5082493379873206425}
   - component: {fileID: 5082493379873206426}
+  - component: {fileID: 6287102429182689641}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -86,12 +87,28 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5082493379873206429}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.55
   m_Height: 3
   m_Direction: 2
   m_Center: {x: 0.000000059604645, y: -2.4018263e-14, z: 0}
+--- !u!114 &6287102429182689641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5082493379873206429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e502cf36e0548e940a323fbe9f5507a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondsToRespawn: 10
+  kartLayers:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &5082493380193061771
 GameObject:
   m_ObjectHideFlags: 0

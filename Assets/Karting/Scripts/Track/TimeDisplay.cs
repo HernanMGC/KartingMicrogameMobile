@@ -108,7 +108,10 @@ namespace KartGame.Track
                 }
             }
 
-            m_Racer = (IRacer)initialRacer;
+            if (initialRacer)
+            {
+                m_Racer = (IRacer)initialRacer;
+            }
         }
 
         void Update()
@@ -213,12 +216,12 @@ namespace KartGame.Track
 
         void DisplaySessionBestRaceTime()
         {
-            float bestLapTime = trackManager.SessionBestRace;
-            if (Mathf.Approximately(bestLapTime, -1f))
+            float bestRaceTime = trackManager.SessionBestRace;
+            if (Mathf.Approximately(bestRaceTime, -1f))
                 return;
 
             m_StringBuilder.Append("Session Best Race: ");
-            m_StringBuilder.Append(bestLapTime.ToString(".##"));
+            m_StringBuilder.Append(bestRaceTime.ToString(".##"));
             m_StringBuilder.Append('\n');
         }
 
@@ -235,12 +238,12 @@ namespace KartGame.Track
 
         void DisplayHistoricalBestRaceTime()
         {
-            float bestLapTime = trackManager.HistoricalBestRace;
-            if (Mathf.Approximately(bestLapTime, -1f))
+            float bestRaceTime = trackManager.HistoricalBestRace;
+            if (Mathf.Approximately(bestRaceTime, -1f))
                 return;
 
             m_StringBuilder.Append("Best Race Ever: ");
-            m_StringBuilder.Append(bestLapTime.ToString(".##"));
+            m_StringBuilder.Append(bestRaceTime.ToString(".##"));
             m_StringBuilder.Append('\n');
         }
 

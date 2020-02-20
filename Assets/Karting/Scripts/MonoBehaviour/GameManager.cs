@@ -37,4 +37,32 @@ public class GameManager : MonoBehaviour
 
         while (!asyncLoadLevel.isDone) { yield return null; }
     }
+
+    internal void PlayAgain()
+    {
+        if (SceneManager.GetSceneByName(menuSceneName).isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(menuSceneName);
+        }
+
+        if (SceneManager.GetSceneByName(gameSceneName).isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(gameSceneName);
+        }
+        
+        SceneManager.LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
+    }
+
+    internal void BackToMainMenu()
+    {
+        if (SceneManager.GetSceneByName(gameSceneName).isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(gameSceneName);
+        }
+
+        if (!SceneManager.GetSceneByName(menuSceneName).isLoaded)
+        {
+            SceneManager.LoadSceneAsync(menuSceneName, LoadSceneMode.Additive);
+        }
+    }
 }

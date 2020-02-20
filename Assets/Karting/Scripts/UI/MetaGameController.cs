@@ -20,6 +20,7 @@ namespace KartGame.UI
 
         bool m_ShowMainCanvas = true;
         bool m_FirstTime = true;
+        GameManager gameManager;
 
         void OnEnable()
         {
@@ -30,6 +31,23 @@ namespace KartGame.UI
         {
             //Start the game immediately rather than show the pause menu.
             HandleMenuButton();
+            gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        }
+
+        public void BackToMainMenu()
+        {
+            if (gameManager != null)
+            {
+                gameManager.BackToMainMenu();
+            }
+        }
+        public void PlayAgain()
+        {
+            if (gameManager != null)
+            {
+                gameManager.PlayAgain();
+
+            }
         }
 
         /// <summary>

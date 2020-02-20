@@ -21,6 +21,7 @@ namespace KartGame.Track
         public KartRepositioner kartRepositioner;
 
         bool m_IsRaceRunning;
+        bool m_IsRaceOver;
         Dictionary<IRacer, Checkpoint> m_RacerNextCheckpoints = new Dictionary<IRacer, Checkpoint> (16);
         TrackRecord m_SessionBestLap = TrackRecord.CreateDefault ();
         TrackRecord m_SessionBestRace = TrackRecord.CreateDefault ();
@@ -28,6 +29,7 @@ namespace KartGame.Track
         TrackRecord m_HistoricalBestRace;
 
         public bool IsRaceRunning => m_IsRaceRunning;
+        public bool IsRaceOver => m_IsRaceOver;
 
         /// <summary>
         /// Returns the best lap time recorded this session.  If no record is found, -1 is returned.
@@ -127,6 +129,7 @@ namespace KartGame.Track
         public void StartRace ()
         {
             m_IsRaceRunning = true;
+            m_IsRaceOver = false;
 
             foreach (KeyValuePair<IRacer, Checkpoint> racerNextCheckpoint in m_RacerNextCheckpoints)
             {
@@ -141,6 +144,7 @@ namespace KartGame.Track
         public void StopRace ()
         {
             m_IsRaceRunning = false;
+            m_IsRaceOver = true;
 
             foreach (KeyValuePair<IRacer, Checkpoint> racerNextCheckpoint in m_RacerNextCheckpoints)
             {
@@ -194,7 +198,10 @@ namespace KartGame.Track
                         m_SessionBestLap.SetRecord (trackName, 1, racer, lapTime);
 
                     if (m_HistoricalBestLap.time > lapTime)
-                        m_HistoricalBestLap.SetRecord (trackName, 1, racer, lapTime);
+                    {
+                        m_HistoricalBestLap.SetRecord(trackName, 1, racer, lapTime);
+                        PlayerPrefs.SetFloat("BestTime", lapTime);
+                    }
 
                     if (racerCurrentLap == raceLapTotal)
                     {
@@ -204,7 +211,10 @@ namespace KartGame.Track
                             m_SessionBestRace.SetRecord (trackName, raceLapTotal, racer, raceTime);
 
                         if (m_HistoricalBestRace.time > raceTime)
-                            m_HistoricalBestLap.SetRecord (trackName, raceLapTotal, racer, raceTime);
+                        {
+                            m_HistoricalBestLap.SetRecord(trackName, raceLapTotal, racer, raceTime);
+                            PlayerPrefs.SetFloat("BestRaceTime", raceTime);
+                        }
 
                         racer.DisableControl ();
                         racer.PauseTimer ();

@@ -15,6 +15,8 @@ namespace KartGame.UI
         public DirectorTrigger raceCountdownTrigger;
         [Tooltip("The UI canvases used for game play.")]
         public Canvas[] gamePlayCanvas;
+        [Tooltip("A reference for the track manager .")]
+        public KartGame.Track.TrackManager trackManager;
 
         bool m_ShowMainCanvas = true;
         bool m_FirstTime = true;
@@ -61,6 +63,12 @@ namespace KartGame.UI
 
         void Update()
         {
+
+            if (trackManager.IsRaceOver && !m_FirstTime)
+            {
+                ToggleMainMenu(true);
+            }
+
             if (Input.GetButtonDown("Menu"))
             {
                 HandleMenuButton();

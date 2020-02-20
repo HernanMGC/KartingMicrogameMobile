@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private bool gameHasStarted = false;
     private AsyncOperation asyncLoadLevel;
 
     public string gameSceneName;
@@ -37,7 +36,5 @@ public class GameManager : MonoBehaviour
         asyncLoadLevel = SceneManager.LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
 
         while (!asyncLoadLevel.isDone) { yield return null; }
-
-        this.gameHasStarted = true;
     }
 }

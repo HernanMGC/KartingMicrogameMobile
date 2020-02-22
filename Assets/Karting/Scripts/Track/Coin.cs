@@ -21,6 +21,8 @@ namespace KartGame.Track
 
         MeshRenderer m_Mesh;
         CapsuleCollider m_Collider;
+        bool isActive = true;
+        bool isActivating = false;
 
         private void Start()
         {
@@ -30,9 +32,8 @@ namespace KartGame.Track
 
         void Update ()
         {
-            if (!m_Mesh.enabled)
+            if (!isActive && !isActivating)
             {
-                Debug.Log("!");
                 StartCoroutine(WaitForReenable());
             }
         }
@@ -40,35 +41,39 @@ namespace KartGame.Track
 
         IEnumerator WaitForReenable()
         {
+            isActivating = true;
             //Print the time of when the function is first called.
-            Debug.Log("Started Coroutine at timestamp : " + Time.time);
             yield return new WaitForSeconds(secondsToRespawn);
 
             //Print the time of when the function is first called.
-            Debug.Log("Finished Coroutine at timestamp : " + Time.time);
-            ActivateCoin(); ;
+            
+            ActivateCoin();
+            isActivating = false;
+
         }
 
         void OnTriggerEnter (Collider other)
         {
-            if (kartLayers.ContainsGameObjectsLayer (other.gameObject))
+            if (kartLayers.ContainsGameObjectsLayer (other.gameObject) && m_Mesh.enabled && m_Collider.enabled)
             {
+                DeactivateCoin();
+
                 IRacer racer = other.GetComponent<IRacer> ();
                 if (racer != null)
                 {
                     OnKartHitCoin?.Invoke(racer, this);
-                    Debug.Log("CoinPicked!");
-                    DeactivateCoin(); ;
                 }
             }
         }
 
         void ActivateCoin() {
+            isActive = true;
             m_Mesh.enabled = true;
             m_Collider.enabled = true;
         }
         void DeactivateCoin()
         {
+            isActive = false;
             m_Mesh.enabled = false;
             m_Collider.enabled = false;
         }

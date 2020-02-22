@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using KartGame.KartSystems;
 using UnityEngine;
+using UnityEngine.Playables;
 
 namespace KartGame.Track
 {
@@ -17,8 +18,12 @@ namespace KartGame.Track
         public int raceLapTotal;
         [Tooltip ("All the checkpoints for the track in the order that they should be completed starting with the start/finish line checkpoint.")]
         public List<Checkpoint> checkpoints = new List<Checkpoint> ();
+        [Tooltip("All the coins for the track.")]
+        public List<Coin> coins = new List<Coin>();
         [Tooltip("Reference to an object responsible for repositioning karts.")]
         public KartRepositioner kartRepositioner;
+        [Tooltip("Reference to an object responsible for giving record feedback.")]
+        public PlayableDirector lapRecordPlayableDirector;
 
         bool m_IsRaceRunning;
         bool m_IsRaceOver;
@@ -27,6 +32,8 @@ namespace KartGame.Track
         TrackRecord m_SessionBestRace = TrackRecord.CreateDefault ();
         TrackRecord m_HistoricalBestLap;
         TrackRecord m_HistoricalBestRace;
+        CoinRecord m_HistoricalCoins;
+        CoinRecord m_HistoricalTotalCoins;
 
         public bool IsRaceRunning => m_IsRaceRunning;
         public bool IsRaceOver => m_IsRaceOver;
@@ -82,6 +89,38 @@ namespace KartGame.Track
                 return -1f;
             }
         }
+        
+        /// <summary>
+        /// Returns the best coins' amount ever recorded.  If no record is found, -1 is returned.
+        /// </summary>
+        public int HistoricalCoins
+        {
+            get
+            {
+                if (m_HistoricalCoins != null && m_HistoricalCoins.coins > 0)
+                {
+                    return m_HistoricalCoins.coins;
+                }
+;
+                return -1;
+            }
+        }
+
+        /// <summary>
+        /// Returns the total coins amount ever recorded.  If no record is found, -1 is returned.
+        /// </summary>
+        public int HistoricalTotalCoins
+        {
+            get
+            {
+                if (m_HistoricalTotalCoins != null && m_HistoricalTotalCoins.coins > 0)
+                {
+                    return m_HistoricalTotalCoins.coins;
+                }
+;
+                return 0;
+            }
+        }
 
         void Awake ()
         {
@@ -90,6 +129,8 @@ namespace KartGame.Track
             
             m_HistoricalBestLap = TrackRecord.Load (trackName, 1);
             m_HistoricalBestRace = TrackRecord.Load (trackName, raceLapTotal);
+            m_HistoricalCoins = CoinRecord.Load(trackName, 1);
+            m_HistoricalTotalCoins = CoinRecord.Load(trackName, raceLapTotal);
         }
 
         void OnEnable ()
@@ -98,6 +139,11 @@ namespace KartGame.Track
             {
                 checkpoints[i].OnKartHitCheckpoint += CheckRacerHitCheckpoint;
             }
+
+            for(int i = 0; i < coins.Count; i++)
+            {
+                coins[i].OnKartHitCoin += CheckRacerHitCoin;
+            }
         }
 
         void OnDisable ()
@@ -105,6 +151,11 @@ namespace KartGame.Track
             for (int i = 0; i < checkpoints.Count; i++)
             {
                 checkpoints[i].OnKartHitCheckpoint -= CheckRacerHitCheckpoint;
+            }
+
+            for(int i = 0; i < coins.Count; i++)
+            {
+                coins[i].OnKartHitCoin += CheckRacerHitCoin;
             }
         }
 
@@ -154,6 +205,8 @@ namespace KartGame.Track
 
             TrackRecord.Save (m_HistoricalBestLap);
             TrackRecord.Save (m_HistoricalBestRace);
+            CoinRecord.Save(m_HistoricalCoins);
+            CoinRecord.Save(m_HistoricalTotalCoins);
         }
 
         void CheckRacerHitCheckpoint (IRacer racer, Checkpoint checkpoint)
@@ -173,6 +226,11 @@ namespace KartGame.Track
             {
                 RacerHitIncorrectCheckpoint (racer, checkpoint);
             }
+        }
+
+        void CheckRacerHitCoin(IRacer racer, Coin coin)
+        {
+            racer.SetCoins(racer.GetCoins() + 1);
         }
 
         IEnumerator CallWhenRaceStarts (IRacer racer, Checkpoint checkpoint)
@@ -201,6 +259,7 @@ namespace KartGame.Track
                     {
                         m_HistoricalBestLap.SetRecord(trackName, 1, racer, lapTime);
                         PlayerPrefs.SetFloat("BestTime", lapTime);
+                        lapRecordPlayableDirector.Play();
                     }
 
                     if (racerCurrentLap == raceLapTotal)
@@ -212,9 +271,15 @@ namespace KartGame.Track
 
                         if (m_HistoricalBestRace.time > raceTime)
                         {
-                            m_HistoricalBestLap.SetRecord(trackName, raceLapTotal, racer, raceTime);
+                            m_HistoricalBestRace.SetRecord(trackName, raceLapTotal, racer, raceTime);
                             PlayerPrefs.SetFloat("BestRaceTime", raceTime);
                         }
+
+                        if (racer.GetCoins() > m_HistoricalCoins.coins)
+                        {
+                            m_HistoricalCoins.SetRecord(trackName, 1, racer, racer.GetCoins());
+                        }
+                        m_HistoricalTotalCoins.SetRecord(trackName, raceLapTotal, racer, racer.GetCoins() + m_HistoricalTotalCoins.coins);
 
                         racer.DisableControl ();
                         racer.PauseTimer ();

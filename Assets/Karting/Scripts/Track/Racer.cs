@@ -17,6 +17,7 @@ namespace KartGame.Track
         bool m_IsTimerPaused = true;
         float m_Timer = 0f;
         int m_CurrentLap = 0;
+        int m_Coins = 0;
         List<float> m_LapTimes = new List<float> (9);
 
         void Awake ()
@@ -95,6 +96,16 @@ namespace KartGame.Track
         public string GetName ()
         {
             return name;
+        }
+
+        public int GetCoins()
+        {
+            return m_Coins;
+        }
+
+        public void SetCoins(int coins)
+        {
+            m_Coins = coins;
         }
     }
 }

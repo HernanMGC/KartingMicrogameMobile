@@ -45,8 +45,18 @@ namespace KartGame.Track
         float GetRaceTime ();
 
         /// <summary>
+        /// Gets the total amount of coins in the race so far.
+        /// </summary>
+        int GetCoins();
+
+        /// <summary>
+        /// Sets the total amount of coins in the race so far.
+        /// </summary>
+        void SetCoins(int coins);
+
+        /// <summary>
         /// Gets the name of the racer for scoreboards and records.
         /// </summary>
-        string GetName ();
+        string GetName();
     }
 }

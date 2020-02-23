@@ -99,7 +99,7 @@ namespace KartGame.Track
 
             historicalCoins = trackManager.HistoricalCoins;
                
-            m_StringBuilder.AppendLine($"Best coins' score: {historicalCoins}");
+            m_StringBuilder.AppendLine($"Best coin score: {historicalCoins}");
         }
 
         void DisplayHistoricalTotalCoins()

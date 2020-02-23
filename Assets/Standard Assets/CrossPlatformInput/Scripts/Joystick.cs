@@ -113,10 +113,10 @@ namespace UnityStandardAssets.CrossPlatformInput
 
             Vector2 finalScale = new Vector2(sizeDelta.x * canvasScale.x, sizeDelta.y * canvasScale.y);
 
-            inputBG.transform.position = new Vector3(
-                transform.position.x - ((joystickBGWidth - joystickWidth) / 2),
-                transform.position.y - ((joystickBGHeight - joystickHeight) / 2),
-                0);
+            inputBG.transform.position = m_StartPos; // new Vector3(
+             //   transform.position.x - ((joystickBGWidth - joystickWidth) / 2),
+            //    transform.position.y - ((joystickBGHeight - joystickHeight) / 2),
+            //    0);
         }
 
 

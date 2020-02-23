@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -147,7 +147,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 50}
+  m_SizeDelta: {x: 600, y: 33.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &83945856
 MonoBehaviour:
@@ -195,12 +195,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
+  m_fontSize: 30
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_textAlignment: 1025
   m_characterSpacing: 0
@@ -304,7 +304,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 160}
+  m_SizeDelta: {x: 600, y: 110}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &123740552
 MonoBehaviour:
@@ -775,7 +775,7 @@ PrefabInstance:
     - target: {fileID: 9084884021648134801, guid: 1a27545505a30d6479abf78847244a72,
         type: 3}
       propertyPath: raceLapTotal
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9084884021648134802, guid: 1a27545505a30d6479abf78847244a72,
         type: 3}
@@ -801,7 +801,6 @@ GameObject:
   m_Component:
   - component: {fileID: 473453402}
   - component: {fileID: 473453401}
-  - component: {fileID: 473453400}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -809,14 +808,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &473453400
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 473453399}
-  m_Enabled: 1
 --- !u!20 &473453401
 Camera:
   m_ObjectHideFlags: 0
@@ -1287,12 +1278,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
+  m_fontSize: 30
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_textAlignment: 1025
   m_characterSpacing: 0
@@ -1376,7 +1367,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 50}
+  m_SizeDelta: {x: 600, y: 33.7}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1386500598
 GameObject:
@@ -1413,7 +1404,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 50}
+  m_SizeDelta: {x: 600, y: 33.7}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1386500600
 MonoBehaviour:
@@ -1461,12 +1452,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
+  m_fontSize: 30
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_textAlignment: 1025
   m_characterSpacing: 0
@@ -1726,7 +1717,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 200}
+  m_SizeDelta: {x: 600, y: 220}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1745604702
 MonoBehaviour:

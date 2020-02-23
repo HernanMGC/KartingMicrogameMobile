@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private AsyncOperation asyncLoadLevel;
+    private AsyncOperation asyncUnloadLevel;
 
     public string gameSceneName;
     public string menuSceneName;
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     internal void StartGame()
     {
-        SceneManager.UnloadSceneAsync(menuSceneName);
+        asyncUnloadLevel = SceneManager.UnloadSceneAsync(menuSceneName);
         StartCoroutine(AddGameScene());
     }
 
@@ -47,10 +48,10 @@ public class GameManager : MonoBehaviour
 
         if (SceneManager.GetSceneByName(gameSceneName).isLoaded)
         {
-            SceneManager.UnloadSceneAsync(gameSceneName);
+            asyncUnloadLevel = SceneManager.UnloadSceneAsync(gameSceneName);
         }
-        
-        SceneManager.LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
+
+        StartCoroutine(AddGameScene());
     }
 
     internal void BackToMainMenu()

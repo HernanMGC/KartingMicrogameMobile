@@ -20,7 +20,7 @@ public class Menu : MonoBehaviour
             if (PlayerPrefs.HasKey("BestTime"))
             {
                 
-                m_StringBuilder.Append("Best Lap Ever: ");
+                m_StringBuilder.Append("Best Lap Ever (PlayerPref): ");
                 m_StringBuilder.Append(PlayerPrefs.GetFloat("BestTime").ToString(".##"));
                 m_StringBuilder.Append('\n');
 

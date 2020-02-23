@@ -1,6 +1,8 @@
 using System;
+using Unity.UIWidgets.ui;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets.CrossPlatformInput
 {
@@ -18,6 +20,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 		public AxisOption axesToUse = AxisOption.Both; // The options for the axes that the still will use
 		public string horizontalAxisName = "Horizontal"; // The name given to the horizontal axis for the cross platform input
 		public string verticalAxisName = "Vertical"; // The name given to the vertical axis for the cross platform input
+        public GameObject inputBG;
 
 		Vector3 m_StartPos;
 		bool m_UseX; // Toggle for using the x axis
@@ -97,7 +100,24 @@ namespace UnityStandardAssets.CrossPlatformInput
 		{
 			transform.position = m_StartPos;
 			UpdateVirtualAxes(m_StartPos);
-		}
+
+            Vector2 sizeDelta = GetComponent<RectTransform>().sizeDelta;
+            CanvasScaler canvasScaler = GetComponentInParent<CanvasScaler>();
+            Vector2 canvasScale = new Vector2(canvasScaler.transform.localScale.x, canvasScaler.transform.localScale.y);
+
+
+            float joystickWidth = GetComponent<RectTransform>().rect.width * canvasScale.x;
+            float joystickHeight = GetComponent<RectTransform>().rect.height * canvasScale.y;
+            float joystickBGWidth = inputBG.GetComponent<RectTransform>().rect.width * canvasScale.x;
+            float joystickBGHeight = inputBG.GetComponent<RectTransform>().rect.height * canvasScale.y;
+
+            Vector2 finalScale = new Vector2(sizeDelta.x * canvasScale.x, sizeDelta.y * canvasScale.y);
+
+            inputBG.transform.position = m_StartPos; // new Vector3(
+             //   transform.position.x - ((joystickBGWidth - joystickWidth) / 2),
+            //    transform.position.y - ((joystickBGHeight - joystickHeight) / 2),
+            //    0);
+        }
 
 
 		public void OnPointerDown(PointerEventData data) { }
